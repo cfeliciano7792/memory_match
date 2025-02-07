@@ -8,6 +8,7 @@ export default class Game extends Phaser.Scene
         this.cursors
         this.player
         this.speed = 200
+        this.boxGroup
     }
 
     create()
@@ -16,6 +17,24 @@ export default class Game extends Phaser.Scene
         this.player = this.physics.add.sprite(width * 0.5, height * 0.6, 'sokoban', 52).play('down-walk')
 
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        // add boxes to the screen
+        this.boxGroup = this.physics.add.staticGroup()
+
+        let xPercent = 0.20
+        let yCor = 75
+        for (let row = 0; row < 4; ++row)
+        {
+            for (let col = 0; col < 4; ++col)
+            {
+                this.boxGroup.get(width * xPercent, yCor, 'sokoban', 10)
+                xPercent += 0.20
+            }
+
+            xPercent = 0.20
+            yCor += 150
+        }
+
     }
 
     update(){
