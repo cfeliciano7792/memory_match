@@ -7,6 +7,7 @@ export default class Game extends Phaser.Scene {
 		this.player;
 		this.speed = 200;
 		this.boxGroup;
+		this.activeBox;
 	}
 
 	create() {
@@ -25,7 +26,7 @@ export default class Game extends Phaser.Scene {
 		this.createBoxes();
 
 		//collision between player and box
-		this.physics.add.collider(this.player, this.boxGroup);
+		this.physics.add.collider(this.player, this.boxGroup, this.handlePlayerBoxCollide, undefined, this);
 	}
 
 	update() {
@@ -53,6 +54,10 @@ export default class Game extends Phaser.Scene {
 
 		// player depth
 		this.player.setDepth(this.player.y);
+
+		this.updateActiveBox()
+
+
 	}
 
 	createBoxes() {
@@ -71,5 +76,33 @@ export default class Game extends Phaser.Scene {
 			xPercent = 0.2;
 			yCor += 150;
 		}
+	}
+
+	handlePlayerBoxCollide(player, box) {
+		if (this.activeBox) {
+			return
+		}
+		this.activeBox = box
+		this.activeBox.setFrame(9)
+	}
+
+	// update box if player gets to far
+	updateActiveBox() {
+		if (!this.activeBox) {
+			return
+		}
+		// calculate distance
+		const distance = Phaser.Math.Distance.Between(
+			this.player.x, this.player.y,
+			this.activeBox.x, this.activeBox.y
+		)
+
+		if (distance < 64) {
+			return
+		}
+		//change box back to orginal color
+		this.activeBox.setFrame(6)
+
+		this.activeBox = undefined
 	}
 }
