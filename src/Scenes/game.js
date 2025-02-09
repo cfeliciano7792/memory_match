@@ -1,5 +1,12 @@
 import Phaser from "phaser";
 
+const level = [
+	[0, 1, 2, 3],
+	[3, 7, 0, 4],
+	[0, 5, 3, 1],
+	[2, 4, 6, 6],
+]
+
 export default class Game extends Phaser.Scene {
 	constructor() {
 		super("game");
@@ -64,12 +71,13 @@ export default class Game extends Phaser.Scene {
 		const { width, height } = this.scale;
 		let xPercent = 0.2;
 		let yCor = 75;
-		for (let row = 0; row < 4; ++row) {
-			for (let col = 0; col < 4; ++col) {
+		for (let row = 0; row < level.length; ++row) {
+			for (let col = 0; col < level[row].length; ++col) {
 				const box = this.boxGroup.create(width * xPercent, yCor, "sokoban", 6);
 				box.setSize(64, 32);
 				box.setOffset(0, 32);
 				box.setDepth(box.y);
+				box.setData('itemType', level[row][col])
 				xPercent += 0.2;
 			}
 
