@@ -14,14 +14,15 @@ export default class Preloader extends Phaser.Scene
         })
 
         // load animal images
-        this.load.image('chicken', 'textures/chick.png')
+        this.load.image('dog', 'textures/dog.png')
         this.load.image('cow', 'textures/cow.png')
-        this.load.image('giraffe', 'textures/giraffe.png')
+        this.load.image('sloth', 'textures/sloth.png')
         this.load.image('narwhal', 'textures/narwhal.png')
         this.load.image('parrot', 'textures/parrot.png')
         this.load.image('penguin', 'textures/penguin.png')
         this.load.image('pig', 'textures/pig.png')
         this.load.image('walrus', 'textures/walrus.png')
+        
 
     }
 
